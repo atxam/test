@@ -1,0 +1,146 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Editor</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Codemirror -->
+  <link rel="stylesheet" href="assets/codemirror/lib/codemirror.css">
+  <script src="assets/codemirror/lib/codemirror.js"></script>
+  <link rel="stylesheet" href="assets/codemirror/theme/dracula.css">
+  <link rel="stylesheet" href="assets/codemirror/theme/3024-day.css">
+</head>
+
+<body class="bg-light">
+  <div class="container-fluid">
+    <div class="row h-100">
+      <div class="col-sm-2 nav-menu">
+        <div class="content">
+
+          <div class="custom-control custom-switch mt-3 mb-1">
+            <input type="checkbox" class="custom-control-input" id="deleteDuplicateFromOneForm">
+            <label class="custom-control-label" for="deleteDuplicateFromOneForm">Удалить дубликаты в пределах одной
+              формы</label>
+          </div>
+
+          <div class="custom-control custom-switch mt-3 mb-1">
+            <input type="checkbox" class="custom-control-input" id="sortByABC">
+            <label class="custom-control-label" for="sortByABC">Сортировать обе формы по алфавиту</label>
+          </div>
+
+          <hr>
+
+          <div class="custom-control custom-radio  mb-1">
+            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="fromOneDelTwo">
+            <label class="custom-control-label" for="customRadio1">Из формы 1 убрать строки формы 2</label>
+          </div>
+
+          <div class="custom-control custom-radio  mb-1">
+            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="fromTwoDelOne">
+            <label class="custom-control-label" for="customRadio2">Из формы 2 убрать строки формы 1</label>
+          </div>
+
+          <div class="custom-control custom-radio  mb-1">
+            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" value="stayOfBoth">
+            <label class="custom-control-label" for="customRadio3">Оставить строки, которые есть в обеих формах</label>
+          </div>
+
+          <p class="text-black-50 mt-3">
+            Удерживайте нажатой клавишу <span class="ctrl ">Ctrl</span> чтобы снять отметку.
+          </p>
+
+        </div>
+
+        <button type="button" id="run" class="btn btn-primary mt-3"><i class="fas fa-play"></i> Run</button>
+      </div>
+
+      <div class="col-sm-10">
+        <div class="row h-100">
+
+          <div class="col-sm-6 field">
+            <div class="header-field">
+              <div class="row ">
+                <div class="col-sm-6 info-wrapper"><span class="editor1info">Lines: 1</span></div>
+                <div class="col-sm-6"><button type="button" rel="tooltip" class="btn btn-default btn-sm"
+                    title="Копировать" data-editor="editor1">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                  <button type="button" rel="tooltip" class="btn btn-default btn-sm" title="Очистить форму"
+                    data-editor="editor1">
+                    <i class="fas fa-trash-alt"></i>
+                  </button></div>
+              </div>
+            </div>
+            <textarea id="editor1"></textarea>
+
+          </div>
+
+          <div class="col-sm-6 field ">
+            <div class="header-field">
+              <div class="row">
+                <div class="col-sm-6 info-wrapper"><span class="editor2info">Lines: 1</span></div>
+                <div class="col-sm-6"><button type="button" rel="tooltip" class="btn btn-default btn-sm"
+                    title="Копировать" data-editor="editor2">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                  <button type="button" rel="tooltip" class="btn btn-default btn-sm" title="Очистить форму"
+                    data-editor="editor2">
+                    <i class="fas fa-trash-alt"></i>
+                  </button></div>
+              </div>
+            </div>
+            <textarea id="editor2"></textarea>
+          </div>
+
+          <div class="col-sm-6 field">
+            <div class="header-field">
+              <div class="row">
+                <div class="col-sm-6 info-wrapper"><span class="editor1resultInfo">Lines: 1</span></div>
+                <div class="col-sm-6"><button type="button" rel="tooltip" class="btn btn-default btn-sm"
+                    title="Копировать" data-editor="editor1result">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                  <button type="button" rel="tooltip" class="btn btn-default btn-sm" title="Очистить форму"
+                    data-editor="editor1result">
+                    <i class="fas fa-trash-alt"></i>
+                  </button></div>
+              </div>
+            </div>
+            <textarea id="editor1result"></textarea>
+          </div>
+
+          <div class="col-sm-6 field">
+            <div class="header-field">
+              <div class="row">
+                <div class="col-sm-6 info-wrapper"><span class="editor2resultInfo">Lines: 1</span></div>
+                <div class="col-sm-6"><button type="button" rel="tooltip" class="btn btn-default btn-sm"
+                    title="Копировать" data-editor="editor2result">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                  <button type="button" rel="tooltip" class="btn btn-default btn-sm" title="Очистить форму"
+                    data-editor="editor2result">
+                    <i class="fas fa-trash-alt"></i>
+                  </button></div>
+              </div>
+            </div>
+            <textarea id="editor2result"></textarea>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
